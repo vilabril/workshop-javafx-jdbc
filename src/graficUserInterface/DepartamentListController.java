@@ -33,7 +33,7 @@ public class DepartamentListController implements Initializable {
 	@FXML
 	private Button btnew;
 	
-	private ObservableList <Departament> obsList;
+	private ObservableList<Departament> obsList;
 	
 	@FXML
 	public void onBtNewAction() {
@@ -63,6 +63,7 @@ public class DepartamentListController implements Initializable {
 		 if (service == null) {
 			 throw new IllegalStateException("Service was null");
 		 }
+		 
 		 List<Departament> list = service.findall();
 		 obsList = FXCollections.observableArrayList(list);
 		 tableViewDepartament.setItems(obsList);
