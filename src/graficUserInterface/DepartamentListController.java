@@ -24,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Departament;
+import model.entities.Department;
 import model.services.DepartamentService;
 
 public class DepartamentListController implements Initializable {
@@ -47,8 +48,8 @@ public class DepartamentListController implements Initializable {
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		/*createDialogForm("/graficUserInterface/About.fxml", parentStage);*/
-		createDialogForm("/graficUserInterface/DepartmentForm.fxml", parentStage);
+		Department obj = new Department();
+		createDialogForm(obj,"/graficUserInterface/DepartmentForm.fxml", parentStage);
 	}
 	
 	public void setDepartamentService (DepartamentService service) {
@@ -80,10 +81,15 @@ public class DepartamentListController implements Initializable {
 		 tableViewDepartament.setItems(obsList);
 	}
 	
-	private void createDialogForm( String absoluteName, Stage parentStage) {
+	private void createDialogForm( Department obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader  = new FXMLLoader (getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			DepartmentFormController controller = loader.getController();
+			controller.SetDepartment(obj);
+			controller.updateFormData();
+			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Enter Department data");
 			dialogStage.setScene(new Scene(pane));
