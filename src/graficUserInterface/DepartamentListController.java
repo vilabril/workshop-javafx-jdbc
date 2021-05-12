@@ -23,7 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Departament;
 import model.entities.Department;
 import model.services.DepartamentService;
 
@@ -32,18 +31,18 @@ public class DepartamentListController implements Initializable {
 	private DepartamentService service;
 
 	@FXML
-	private TableView<Departament> tableViewDepartament;
+	private TableView<Department> tableViewDepartament;
 	
 	@FXML 
-	private TableColumn<Departament, Integer> TableColumnId;
+	private TableColumn<Department, Integer> TableColumnId;
 	
 	@FXML 
-	private TableColumn<Departament, String> TableColumnName;
+	private TableColumn<Department, String> TableColumnName;
 	
 	@FXML
 	private Button btnew;
 	
-	private ObservableList<Departament> obsList;
+	private ObservableList<Department> obsList;
 	
 	@FXML
 	public void onBtNewAction(ActionEvent event) {
@@ -76,7 +75,7 @@ public class DepartamentListController implements Initializable {
 			 throw new IllegalStateException("Service was null");
 		 }
 		 
-		 List<Departament> list = service.findall();
+		 List<Department> list = service.findall();
 		 obsList = FXCollections.observableArrayList(list);
 		 tableViewDepartament.setItems(obsList);
 	}
@@ -87,7 +86,8 @@ public class DepartamentListController implements Initializable {
 			Pane pane = loader.load();
 			
 			DepartmentFormController controller = loader.getController();
-			controller.SetDepartment(obj);
+			controller.setDepartment(obj);
+			controller.setDepartmentService(new DepartamentService());
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
